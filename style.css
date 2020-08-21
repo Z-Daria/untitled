@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    color: #001B48;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #D6E8EE;
+    
+}
+
+main {
+    width: 40%;
+    margin: 0 auto;
+    background-color: #97CADB;
+    position: relative;
+    top: 15%;
+    padding: 30px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 5% 20% 20% 20% 5% 5%;
+    justify-content: space-between;
+    justify-items: center;
+    align-content: center;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.heading {
+    text-align: center;
+}
+
+ /* main content - table */
+.data {
+    background-color: #018ABE;
+    width: 100%;
+    border-radius: 20px;
+    padding: 20px;
+    display: grid;
+    /* grid-template-rows: 1fr 1fr 1fr 1fr; */
+    grid-row-gap: 20px;
+    grid-auto-flow: row;
+}
+
+ /* table head */
+
+ .head div {
+    font-weight: bold;
+ }
+
+ /* table records */
+.record {
+    display: grid;
+    grid-template-columns: 5% 20% 20% 20% 5% 5%;
+    justify-content: space-between;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+}
+
+.order {
+    grid-column: 1/2;
+    display: grid;
+    align-items: center;
+    /* background-color: firebrick; */
+}
+
+.name, #name {
+    grid-column: 2/3;
+}
+
+.type, #type {
+    grid-column: 3/4;
+}
+
+.color, #color {
+    grid-column: 4/ span 1;
+}
+
+.edit, .ok {
+    grid-column: 5/6;
+}
+
+.delete {
+    grid-column: 6/ span 1;
+}
+
+ /* input fields */
+.fields {
+    display: none;
+    grid-template-columns: 5% 20% 20% 20% 5% 5%;
+    /* grid-template-rows: 1fr 1fr; */
+    justify-content: space-between;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    grid-row-gap: 10px;
+}
+
+input {
+    width: 100%;
+}
+
+#name, #type, #color {
+    font-size: 1.05rem;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    padding: 4px;
+    margin-bottom: 10px;
+}
+
+#name, #type, #color:focus {
+    outline: none;
+}
+
+
+#submit {
+    grid-column: 3/4;
+    grid-row: 2/ span 1;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    font-size: 1.05rem;
+}
+
+#submit:focus {
+    outline: none;
+}
+
+ /* plus button showing input fields */
+.add-record {
+    display: grid;
+    grid-template-columns: 5% 20% 20% 20% 5% 5%;
+    /* grid-template-rows: 1fr; */
+    justify-content: space-between;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+}
+
+.plus-button {
+    grid-column: 3/4;
+    margin-top: 20px;
+}
+
+.plus-button svg {
+    border-radius: 50%;
+}
+
+/* input field style */
+
+.input-field {
+    font-size: 1.05rem;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    padding: 4px;
+    margin-bottom: 10px;
+}
