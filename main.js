@@ -1,4 +1,9 @@
+
+
 $(document).ready(() => {
+    import { recordsArray, recordMaker, findIndex, changePositionUp, changePositionDown, editRecord, removeFromStorage } from './storage.js';
+    let itemToEdit;
+
     const orderButtons = `<div class="order"><img class="move-up" src="https://img.icons8.com/material-outlined/24/000000/collapse-arrow.png"/>
         <img class="move-down" src="https://img.icons8.com/material-outlined/24/000000/expand-arrow.png"/></div>`;
     const editButton = `<div class="edit">
@@ -42,8 +47,22 @@ $(document).ready(() => {
             cursor: 'auto'
         })
     }).on('click', () => { // add new color record
+        console.log($('#name').val(),
+        $('#type').val(),
+        $('#color').val());
+        console.log(recordsArray);
+        // add record to the local storage
+        recordsArray.push({
+            name: $('#name').val(),
+            type: $('#type').val(),
+            color: $('#color').val()
+        });
+        localStorage.setItem('records', JSON.stringify(recordsArray));
         const newRecord = '<div class="record">' +  orderButtons + '<div class="name"><span>' + $('#name').val() + '</span></div><div class="type"><span>' + $('#type').val() + '</span></div><div class="color"><span>' + $('#color').val() + '</span></div>' + editButton + deleteButton + '</div>';
         $(newRecord).insertBefore('.fields');
+        $('#name').val('');
+        $('#type').val('');
+        $('#color')[0].value = '#000000';
         $('.fields').css('display', 'none');
     });
 
@@ -64,6 +83,8 @@ $(document).ready(() => {
         const $itemToMove = $(event.currentTarget).parent().parent();
         if ($itemToMove.prev()[0] !== $('.head')[0]) {
             $itemToMove.insertBefore($itemToMove.prev());
+            changePositionUp(recordsArray, $itemToMove);
+            localStorage.setItem('records', JSON.stringify(recordsArray));
         };
     });
 
@@ -72,6 +93,8 @@ $(document).ready(() => {
         const $itemToMove = $(event.currentTarget).parent().parent();
         if ($itemToMove.next()[0] !== $('.fields')[0]) {
             $itemToMove.insertAfter($itemToMove.next());
+            changePositionDown(recordsArray, $itemToMove);
+            localStorage.setItem('records', JSON.stringify(recordsArray));
         };
     });
 
@@ -86,13 +109,15 @@ $(document).ready(() => {
         const nameText = $(event.currentTarget).siblings('.name').find('span').text();
         const typeText = $(event.currentTarget).siblings('.type').find('span').text();
         const colorText = $(event.currentTarget).siblings('.color').find('span').text();
+        const obj = { name: nameText, type: typeText, color: colorText };
+        itemToEdit = findIndex(recordsArray, obj);
         $(event.currentTarget).addClass('ok').removeClass('edit').html(`<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
         width="28" height="28"
         viewBox="0 0 172 172"
         style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#001b48"><path d="M86,14.33333c-39.5815,0 -71.66667,32.08517 -71.66667,71.66667c0,39.5815 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.08517 71.66667,-71.66667c0,-39.5815 -32.08517,-71.66667 -71.66667,-71.66667zM71.66667,124.80033l-33.7335,-33.7335l10.13367,-10.13367l23.59983,23.59983l52.2665,-52.2665l10.13367,10.13367z"></path></g></g></svg>`);
         $(event.currentTarget).siblings('.name').html('<input class="input-field" type="text" value="' + nameText + '"/>');
         $(event.currentTarget).siblings('.type').html('<input class="input-field" type="text" value="' + typeText + '"/>');
-        $(event.currentTarget).siblings('.color').html('<input class="input-field" type="text" value="' + colorText + '"/>');
+        $(event.currentTarget).siblings('.color').html('<input class="input-field" type="color" value="' + colorText + '"/>');
         event.stopPropagation();
     });
 
@@ -104,6 +129,9 @@ $(document).ready(() => {
         const $name = $(event.currentTarget).siblings('.name');
         const $type = $(event.currentTarget).siblings('.type');
         const $color = $(event.currentTarget).siblings('.color');
+        const editedRecord = $(event.currentTarget).parent();
+        editRecord(recordsArray, editedRecord);
+        localStorage.setItem('records', JSON.stringify(recordsArray));
         $name.html('<span>' + $name.find('input')[0].value + '</span>');
         $type.html('<span>' + $type.find('input')[0].value + '</span>');
         $color.html('<span>' + $color.find('input')[0].value + '</span>');
@@ -112,6 +140,18 @@ $(document).ready(() => {
 
     // remove record
     $(document).on('click', '.delete', event => {
+        const name = $(event.currentTarget).siblings('.name').find('span').text();
+        const type = $(event.currentTarget).siblings('.type').find('span').text();
+        const color = $(event.currentTarget).siblings('.color').find('span').text();
+        console.log(color);
+        const recordToDelete = {name: name, type: type, color: color};
+        removeFromStorage(recordToDelete);
         $(event.currentTarget).parent().remove();
     });
+
+    // restore existing records
+    const data = JSON.parse(localStorage.getItem('records'));
+    data.forEach((record) => {
+        recordMaker(record);
+        });
 });
