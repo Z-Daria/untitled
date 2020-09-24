@@ -181,3 +181,33 @@ input {
     padding: 4px;
     margin-bottom: 10px;
 }
+
+@media only screen and (min-width: 700px) and (max-width: 1400px) {
+    main {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 910px) {
+    main {
+        width: 80%;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    main {
+        width: 95%;
+        padding: 10px;
+        font-size: 0.7rem;
+    }
+
+    .plus-button svg {
+        width: 35px;
+        height: 25px;
+    }
+
+    .delete svg, .edit svg, .order img {
+        width: 17px;
+        height: auto;
+    }
+}
