@@ -1,3 +1,4 @@
+import { itemToEdit, orderButtons, editButton, deleteButton } from './main.js';
 export let recordsArray = localStorage.getItem('records')
 ? JSON.parse(localStorage.getItem('records'))
 : [];
@@ -48,7 +49,7 @@ export function editRecord(array, selector) {
     const color = selector.children('.color').find('input').val();
     const obj = { name: name, type: type, color: color };
     array[itemToEdit] = obj;
-}
+};
 
 
 export const removeFromStorage = function(record) {
