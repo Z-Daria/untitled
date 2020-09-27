@@ -55,13 +55,17 @@ main {
     padding: 20px;
     display: grid;
     /* grid-template-rows: 1fr 1fr 1fr 1fr; */
-    grid-row-gap: 20px;
+    grid-row-gap: 1%;
     grid-auto-flow: row;
 }
 
  /* table head */
 
- .head div {
+ .head {
+     margin-bottom: 2%;
+ }
+
+.head div {
     font-weight: bold;
  }
 
@@ -75,11 +79,17 @@ main {
     align-items: center;
 }
 
+.name, .type, .color {
+    display: flex;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+}
+
 .order {
     grid-column: 1/2;
     display: grid;
     align-items: center;
-    /* background-color: firebrick; */
 }
 
 .name, #name {
@@ -114,7 +124,6 @@ main {
 .fields {
     display: none;
     grid-template-columns: 5% 20% 20% 20% 5% 5%;
-    /* grid-template-rows: 1fr 1fr; */
     justify-content: space-between;
     justify-items: center;
     align-content: center;
@@ -127,11 +136,14 @@ input {
 }
 
 #name, #type, #color {
-    font-size: 1.05rem;
     border-radius: 20px;
     border: 1px solid #fff;
-    padding: 4px;
+    padding: 2%;
     margin-bottom: 10px;
+}
+
+input {
+    font-size: 1.05rem;
 }
 
 #name, #type, #color:focus {
@@ -142,10 +154,9 @@ input {
 #submit {
     grid-column: 3/4;
     grid-row: 2/ span 1;
-    padding: 5px 10px;
+    padding: 1% 2%;
     border-radius: 20px;
     border: 1px solid #fff;
-    font-size: 1.05rem;
 }
 
 #submit:focus {
@@ -156,7 +167,6 @@ input {
 .add-record {
     display: grid;
     grid-template-columns: 5% 20% 20% 20% 5% 5%;
-    /* grid-template-rows: 1fr; */
     justify-content: space-between;
     justify-items: center;
     align-content: center;
@@ -184,25 +194,70 @@ input {
 
 @media only screen and (min-width: 700px) and (max-width: 1400px) {
     main {
-        width: 50%;
+        width: 65%;
     }
 }
 
-@media only screen and (min-width: 480px) and (max-width: 910px) {
+@media only screen and (min-width: 700px) and (max-width: 950px) {
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .data, input {
+        font-size: 1rem;
+    }
+    
+    .plus-button svg {
+        width: 42px;
+        height: 42px;
+    }
+
+    .delete svg, .edit svg, .order img {
+        width: 23px;
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 699px) {
     main {
         width: 80%;
     }
-}
 
-@media only screen and (min-width: 320px) and (max-width: 480px) {
-    main {
-        width: 95%;
-        padding: 10px;
-        font-size: 0.7rem;
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .data, input {
+        font-size: 0.8rem;
     }
 
     .plus-button svg {
-        width: 35px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .delete svg, .edit svg, .order img {
+        width: 21px;
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 520px) {
+    main {
+        width: 88%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.15rem;
+    }
+
+    .data, input {
+        font-size: 0.6rem;
+    }
+
+    .plus-button svg {
+        width: 25px;
         height: 25px;
     }
 
